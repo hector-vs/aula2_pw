@@ -51,5 +51,21 @@
         }
     ?>
     </main>
+    <div>
+        <h2>Todos os clientes:</h2>
+        <?php
+            $query_clientes = "SELECT id, nome, email FROM tb_cliente ORDER BY id ASC";
+            $result_clientes = $pdo->prepare($query_clientes);
+            $result_clientes->execute();
+
+            while ($row_cliente = $result_clientes->fetch(PDO::FETCH_ASSOC)) {
+                extract($row_cliente);
+                echo "ID: $id <br>";
+                echo "Nome: $nome <br>";
+                echo "E-mail: $email <br>";
+                echo "<hr>";
+            }
+        ?>
+    </div>
 </body>
 </html>
