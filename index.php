@@ -1,5 +1,6 @@
 <?php
-    include("conexao.php");
+    require_once './Database.php';
+    $pdo = Database::conexao();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,17 +25,17 @@
     <nav>
         <h2>Pesquisar clientes</h2>
         <form method="POST" action="">
-            <label>Nome: </label>
-            <input type="text" name="nome_cliente" placeholder="Digite o nome" value="<?php if(isset($dados['nome_cliente'])){ echo $dados['nome_cliente']; } ?>"><br><br>
+            <label for="nome_cliente">Nome: </label>
+            <input type="text" id="nome_cliente" name="nome_cliente" placeholder="Digite o nome" value="<?php if(isset($dados['nome_cliente'])){ echo $dados['nome_cliente']; } ?>"><br><br>
             <input type="submit" name="pesqCliente" id="pesqCliente"><br><br>
         </form>
     </nav>
     <main>
     <?php
         if (!empty($dados['pesqCliente'])) {
-            $nome = "%" . $dados['nome_cliente'] . "%";
+            $nome = "%".$dados['nome_cliente']."%";
             $query_clientes = "SELECT id, nome, email FROM tb_cliente WHERE nome LIKE :nome ORDER BY id ASC";
-            $result_clientes = $conn->prepare($query_clientes);
+            $result_clientes = $pdo->prepare($query_clientes);
             $result_clientes->bindParam(':nome', $nome, PDO::PARAM_STR);
 
             $result_clientes->execute();

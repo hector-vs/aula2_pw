@@ -1,13 +1,13 @@
 <?php
-    include("conexao.php");
-
+    require_once './Database.php';
+    $pdo = Database::conexao();
     if(isset($_POST)){
         $data = [
             "nome"=> $_POST['nome'],
             "email"=> $_POST['email'],
         ];
         $sql = "INSERT INTO tb_cliente (nome, email) VALUES (:nome, :email)";
-        $stmt = $conn->prepare($sql);
+        $stmt = $pdo->prepare($sql);
         $stmt->bindparam(":nome", $_POST['nome']);
         $stmt->bindparam(":email", $_POST['email']);
         $stmt->execute();
