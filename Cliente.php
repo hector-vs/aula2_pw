@@ -24,7 +24,7 @@
                         $stmt->bindParam(':email', $email);
                         if($stmt->execute()){ 
                             echo("Cliente cadastrado!");
-                            echo("<meta http-equiv='refresh' content='1; index.php'>");; 
+                            echo("<meta http-equiv='refresh' content='1; index.php'>"); 
                         }else{
                             throw new Exception('Ocorreu um erro ao cadastrar cliente!');  
                         }
